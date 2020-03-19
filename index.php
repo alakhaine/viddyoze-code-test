@@ -3,7 +3,6 @@
 </head>
 
 <body>
-<a href="index.php"><button>Reload</button></a>
 <pre>
 <?php
 	require_once "utils.php";
@@ -12,7 +11,8 @@
 	require_once "config.php";
 	require_once "front.php";
 	$form_user_id = 0;
-	
+	$self_URL = substr($_SERVER["HTTP_REFERER"], 0,strrpos($_SERVER["HTTP_REFERER"], '/'));
+	echo '<a href="'.$self_URL.'/index.php"><button>Reload</button></a></br>';
 ?>
 <style>
 table, th, td 
@@ -21,10 +21,11 @@ table, th, td
 }
 </style>
 <?php
+	//var_dump ($_SERVER);
 	echo 'Product catalog</br>';
 	echo display_catalog($arr_products, $form_user_id);
 	if (isset($_POST['api_method'])){
-		$temp = file_get_contents($_SERVER["HTTP_ORIGIN"].'/basket_API.php?method='.$_POST['api_method'].'&user_id='.$_POST['user_id'].'&code='.$_POST['code']);
+		$temp = file_get_contents($self_URL.'/basket_API.php?method='.$_POST['api_method'].'&user_id='.$_POST['user_id'].'&code='.$_POST['code']);
 	}
 	$arr_current_basket =  basket_read($form_user_id);
 	

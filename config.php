@@ -1,4 +1,4 @@
 <?php
-global $path_baskets;
- $path_baskets = "baskets";
+	global $path_baskets;
+	$path_baskets = "baskets";
 ?>
